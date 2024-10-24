@@ -3,3 +3,17 @@ provider "aws" {
   access_key = "${var.access_key}"
   secret_key = "${var.secret_key}"
 }
+resource "random_pet" "bucket_name" {
+  length    = 2
+  separator = "-"
+}
+resource "aws_s3_bucket" "bucket" {
+  bucket = "${var.service_name}-${random_pet.bucket_name.id}"
+
+  tags = {
+    Service     = "${var.service_name}"
+    Environment = "${var.environment}"
+    Name        = "${var.service_name}-${var.environment}-s3-bucket"
+    Terraform   = "true"
+  }
+}
