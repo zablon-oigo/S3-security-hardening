@@ -12,3 +12,4 @@ def lambda_handler(event, context):
         f.write(file_content)
 
     s3_client.upload_file(temp_file.name,BUCKET_NAME,'test.txt')
+    s3_client.download_file(BUCKET_NAME,'test.txt',temp_file.name)
