@@ -23,3 +23,13 @@ resource "aws_s3_bucket_ownership_controls" "bucket_ownership" {
     object_ownership = "BucketOwnerEnforced"
   }
 }
+data "aws_iam_policy_document" "lambda_role_trust_policy" {
+  statement {
+    effect = "Allow"
+    principals {
+      type = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+  
+}
