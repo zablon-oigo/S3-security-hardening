@@ -13,3 +13,7 @@ def lambda_handler(event, context):
 
     s3_client.upload_file(temp_file.name,BUCKET_NAME,'test.txt')
     s3_client.download_file(BUCKET_NAME,'test.txt',temp_file.name)
+
+    with open(temp_file.name,'r')as f:
+        file_content=f.read()
+        print(file_content)
