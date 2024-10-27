@@ -67,4 +67,10 @@ environment {
       BUCKET_NAME = aws_s3_bucket.bucket.bucket
     }
   }
+tags = {
+    "Service"     = var.service_name
+    "Environment" = var.environment
+    "Name"        = "${var.service_name}-service-lambda-function"
+    "Terraform"   = "true"
+  }
 }
