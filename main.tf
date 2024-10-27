@@ -54,3 +54,8 @@ resource "aws_iam_role_policy" "lambda_s3_access_policy" {
   role   = aws_iam_role.service_lambda_execution_role.id
   policy = data.aws_iam_policy_document.s3_access_policy_document.json
 }
+resource "aws_lambda_function" "lambda_function" {
+  function_name    = "${var.service_name}-function"
+  filename         = data.archive_file.lambda_zip.output_path
+  role             = aws_iam_role.service_lambda_execution_role.arn
+}
