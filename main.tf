@@ -43,3 +43,9 @@ resource "aws_iam_role_policy_attachment" "service_lambda_role_basic_policy" {
   role       = aws_iam_role.lambda_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+data "aws_iam_policy_document" "s3_access_policy_document" {
+  statement {
+    actions   = ["s3:putObject", "s3:getObject"]
+    resources = ["${aws_s3_bucket.bucket.arn}/*"]
+  }
+}
