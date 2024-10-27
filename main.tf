@@ -58,4 +58,8 @@ resource "aws_lambda_function" "lambda_function" {
   function_name    = "${var.service_name}-function"
   filename         = data.archive_file.lambda_zip.output_path
   role             = aws_iam_role.service_lambda_execution_role.arn
+  vpc_config {
+    subnet_ids         = var.private_subnet_ids # Launch our Lambda function into the private subnets
+    security_group_ids = [aws_security_group.service_lambda_sg.id]
+  }
 }
