@@ -49,3 +49,8 @@ data "aws_iam_policy_document" "s3_access_policy_document" {
     resources = ["${aws_s3_bucket.bucket.arn}/*"]
   }
 }
+resource "aws_iam_role_policy" "lambda_s3_access_policy" {
+  name   = "iam_for_lambda_policy"
+  role   = aws_iam_role.service_lambda_execution_role.id
+  policy = data.aws_iam_policy_document.s3_access_policy_document.json
+}
