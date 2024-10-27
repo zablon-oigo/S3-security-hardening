@@ -38,3 +38,8 @@ resource "aws_iam_role" "lambda_execution_role"{
   name="${var.service_name}-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_role_trust_policy.json
 }
+
+resource "aws_iam_role_policy_attachment" "service_lambda_role_basic_policy" {
+  role       = aws_iam_role.lambda_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
