@@ -85,3 +85,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "sse_config" {
     bucket_key_enabled = true
   }
 }
+data "aws_iam_policy_document" "s3_endpoint_policy" {
+  statement {
+    actions   = ["s3:putObject", "s3:getObject"]
+    resources = ["${aws_s3_bucket.bucket.arn}/*"]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:PrincipalArn"
+      values   = [aws_iam_role.service_lambda_execution_role.arn] # only allow access to this endpoint from the Lambda function
+    }
+  }
+}
