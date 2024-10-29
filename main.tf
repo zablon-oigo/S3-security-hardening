@@ -74,6 +74,10 @@ tags = {
     "Terraform"   = "true"
   }
 }
+resource "aws_kms_key" "kms_key" {
+  description             = "KMS key for ${var.service_name} in the ${var.environment} environment"
+  deletion_window_in_days = 7
+}
 resource "aws_s3_bucket_server_side_encryption_configuration" "sse_config" {
   bucket = aws_s3_bucket.bucket.id
 
