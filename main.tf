@@ -80,27 +80,14 @@ resource "aws_kms_key" "kms_key" {
   policy = jsonencode({
     Version = "2012-10-17",
     Id      = "${var.service_name}-${var.environment}-key-policy",
-    Statement = concat([
+     Statement = concat([
       {
         Sid    = "Allow administration of the key",
         Effect = "Allow",
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" # allow the root user to administer the key but not use it
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" 
         },
-        Action = [
-          "kms:Create*",
-          "kms:Describe*",
-          "kms:Enable*",
-          "kms:List*",
-          "kms:Put*",
-          "kms:Update*",
-          "kms:Revoke*",
-          "kms:Disable*",
-          "kms:Get*",
-          "kms:Delete*",
-          "kms:ScheduleKeyDeletion",
-          "kms:CancelKeyDeletion"
-        ],
+      
         Resource = "*"
       },
       {
