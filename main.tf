@@ -98,7 +98,7 @@ data "aws_iam_policy_document" "s3_endpoint_policy" {
     condition {
       test     = "ArnEquals"
       variable = "aws:PrincipalArn"
-      values   = [aws_iam_role.service_lambda_execution_role.arn] # only allow access to this endpoint from the Lambda function
+      values   = [aws_iam_role.service_lambda_execution_role.arn]
     }
   }
 }
